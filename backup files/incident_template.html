@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CyberWatch Incident Intelligence</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Hanken+Grotesk:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+darkMode: "class",
+theme: {
+extend: {
+colors: {
+secondary-container:"#0566d9",
+surface-container:"#191f2f",
+tertiary-fixed-dim:"#c0c1ff",
+outline-variant:"#3b494c",
+tertiary-container:"#ccccff",
+outline:"#849396",
+on-tertiary-fixed-variant:"#2f2ebe",
+inverse-surface:"#dce2f7",
+surface-container-lowest:"#070e1d",
+secondary-fixed:"#d8e2ff",
+on-secondary-fixed:"#001a42",
+on-secondary-fixed-variant:"#004395",
+secondary:"#adc6ff",
+surface-bright:"#323949",
+on-tertiary-fixed:"#07006c",
+on-tertiary-container:"#4344d1",
+error:"#ffb4ab",
+on-error:"#690005",
+inverse-on-surface:"#293040",
+on-primary-fixed:"#001f24",
+on-background:"#dce2f7",
+on-error-container:"#ffdad6",
+on-primary:"#00363d",
+primary-container:"#00e5ff",
+on-primary-fixed-variant:"#004f58",
+surface:"#0c1322",
+on-surface-variant:"#bac9cc",
+on-secondary:"#002e6a",
+primary-fixed-dim:"#00daf3",
+on-primary-container:"#00626e",
+on-surface:"#dce2f7",
+background:"#050b18",
+on-tertiary:"#1000a9",
+tertiary:"#edeaff",
+surface-container-highest:"#2e3545",
+secondary-fixed-dim:"#adc6ff",
+surface-container-high:"#232a3a",
+on-secondary-container:"#e6ecff",
+surface-container-low:"#141b2b",
+primary-fixed:"#9cf0ff",
+surface-tint:"#00daf3",
+tertiary-fixed:"#e1e0ff",
+surface-dim:"#0c1322",
+primary:"#c3f5ff",
+inverse-primary:"#006875",
+surface-variant:"#2e3545",
+error-container:"#93000a"
+},
+spacing:{
+xs:"4px",
+sm:"8px",
+md:"16px",
+lg:"24px",
+xl:"32px",
+"container-margin":"40px"
+}
+}
+}
+}
+</script>
+
+<style>
+
+body{
+background:#050b18;
+color:#dce2f7;
+overflow-x:hidden;
+}
+
+.glass-card{
+background:rgba(17,24,39,.7);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(12px);
+border-top:1px solid rgba(255,255,255,.2);
+transition:.3s;
+}
+
+.glass-card:hover{
+border-color:rgba(255,255,255,.3);
+box-shadow:inset 0 0 15px rgba(0,229,255,.05);
+}
+
+.cyber-grid{
+background-image:
+linear-gradient(to right,rgba(0,229,255,.05) 1px,transparent 1px),
+linear-gradient(to bottom,rgba(0,229,255,.05) 1px,transparent 1px);
+background-size:40px 40px;
+}
+
+.radial-glow{
+background:
+radial-gradient(circle at center,
+rgba(0,229,255,.15) 0%,
+transparent 60%);
+}
+
+.timeline-indicator{
+box-shadow:0 0 10px rgba(0,229,255,.8);
+}
+
+.section-title{
+font-size:32px;
+font-weight:700;
+margin-bottom:20px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.dynamic-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:16px;
+}
+
+</style>
+
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+<div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+<!-- NAVBAR -->
+
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-white/10 h-20 flex items-center justify-between px-10">
+
+<div class="flex items-center gap-10">
+
+<span class="text-primary text-2xl font-bold">
+CyberWatch
+</span>
+
+<div class="hidden md:flex gap-8">
+
+<a href="index.html" class="text-on-surface-variant hover:text-white">
+Home
+</a>
+
+<a href="incidents.html" class="text-on-surface-variant hover:text-white">
+Incident Library
+</a>
+
+<a href="analytics.html" class="text-on-surface-variant hover:text-white">
+Analytics
+</a>
+
+<a href="#" class="text-primary border-b-2 border-primary">
+Resources
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- MAIN -->
+
+<main class="relative z-10 pt-[110px] max-w-7xl mx-auto px-6 pb-20">
+
+<!-- BREADCRUMB -->
+
+<div class="text-sm text-slate-400 mb-8">
+Home > Incident Library >
+<span id="breadcrumb-title">Loading...</span>
+</div>
+
+<!-- HERO -->
+
+<section class="relative text-center py-10">
+
+<div class="absolute inset-0 radial-glow -z-10"></div>
+
+<div
+class="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 px-4 py-2 rounded-full mb-6">
+
+<span class="w-2 h-2 rounded-full bg-red-400"></span>
+
+<span
+id="incident-category-badge"
+class="uppercase tracking-wider text-red-300 text-xs">
+
+Loading...
+
+</span>
+
+</div>
+
+<h1
+id="incident-title"
+class="text-5xl font-bold max-w-4xl mx-auto leading-tight">
+
+Loading...
+
+</h1>
+
+<p
+id="incident-summary"
+class="text-slate-300 text-lg max-w-3xl mx-auto mt-4">
+
+Loading...
+
+</p>
+
+<!-- METADATA -->
+
+<div class="flex flex-wrap justify-center gap-4 mt-8">
+
+<div class="glass-card px-5 py-3 rounded-lg">
+
+<div class="text-xs text-slate-400">
+Category
+</div>
+
+<div id="incident-category">
+Loading...
+</div>
+
+</div>
+
+<div class="glass-card px-5 py-3 rounded-lg">
+
+<div class="text-xs text-slate-400">
+Severity
+</div>
+
+<div id="incident-severity">
+Loading...
+</div>
+
+</div>
+
+<div class="glass-card px-5 py-3 rounded-lg">
+
+<div class="text-xs text-slate-400">
+Year
+</div>
+
+<div id="incident-year">
+Loading...
+</div>
+
+</div>
+
+<div class="glass-card px-5 py-3 rounded-lg">
+
+<div class="text-xs text-slate-400">
+Impact
+</div>
+
+<div id="incident-impact">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- OVERVIEW + STATS -->
+
+<section class="grid md:grid-cols-3 gap-6 mt-12">
+
+<div class="glass-card rounded-xl p-8 md:col-span-2">
+
+<h2 class="section-title">
+Incident Overview
+</h2>
+
+<p
+id="incident-overview"
+class="text-slate-300 leading-relaxed">
+
+Loading...
+
+</p>
+
+</div>
+
+<div class="grid gap-4">
+
+<div class="glass-card p-5 rounded-xl text-center">
+
+<div
+id="systems-affected"
+class="text-2xl font-bold text-cyan-300">
+
+-
+
+</div>
+
+<div class="text-sm text-slate-400">
+Systems Affected
+</div>
+
+</div>
+
+<div class="glass-card p-5 rounded-xl text-center">
+
+<div
+id="countries-impacted"
+class="text-2xl font-bold text-red-300">
+
+-
+
+</div>
+
+<div class="text-sm text-slate-400">
+Countries Impacted
+</div>
+
+</div>
+
+<div class="glass-card p-5 rounded-xl text-center">
+
+<div
+id="estimated-damage"
+class="text-2xl font-bold">
+
+-
+
+</div>
+
+<div class="text-sm text-slate-400">
+Estimated Damage
+</div>
+
+</div>
+
+<div class="glass-card p-5 rounded-xl text-center">
+
+<div
+id="peak-activity"
+class="text-2xl font-bold">
+
+-
+
+</div>
+
+<div class="text-sm text-slate-400">
+Peak Activity
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ATTACK TIMELINE -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+timeline
+</span>
+Attack Timeline
+</h2>
+
+<div
+id="timeline-container"
+class="relative pl-8 border-l border-white/10 space-y-6">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+<!-- HOW THE ATTACK WORKED -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+psychology
+</span>
+How the Attack Worked
+</h2>
+
+<div
+id="attack-vector-container"
+class="dynamic-grid">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+<!-- GLOBAL IMPACT -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+public
+</span>
+Global Impact
+</h2>
+
+<div
+id="global-impact-container"
+class="dynamic-grid">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+<!-- MITIGATION STRATEGIES -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+shield
+</span>
+Mitigation Strategies
+</h2>
+
+<div
+id="mitigation-container"
+class="dynamic-grid">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+<!-- LESSONS LEARNED -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+school
+</span>
+Lessons Learned
+</h2>
+
+<div
+id="lessons-container"
+class="dynamic-grid">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+<!-- REFERENCES -->
+
+<section class="mt-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+link
+</span>
+References
+</h2>
+
+<div
+id="references-container"
+class="flex flex-wrap gap-4">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+<!-- RELATED INCIDENTS -->
+
+<section class="mt-16 pb-16">
+
+<h2 class="section-title">
+<span class="material-symbols-outlined text-cyan-300">
+library_books
+</span>
+Related Incidents
+</h2>
+
+<div
+id="related-incidents-container"
+class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<!-- Generated by incident_v2.js -->
+
+</div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer
+class="bg-[#070e1d] border-t border-white/10 py-10 relative z-10">
+
+<div
+class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+
+<div class="flex items-center gap-2">
+
+<span class="material-symbols-outlined text-cyan-300">
+security
+</span>
+
+<span class="text-xl font-bold">
+CyberWatch
+</span>
+
+</div>
+
+<div class="flex flex-wrap justify-center gap-6 text-sm">
+
+<a href="incidents.html"
+class="text-slate-400 hover:text-cyan-300 transition">
+
+Incident Library
+
+</a>
+
+<a href="analytics.html"
+class="text-slate-400 hover:text-cyan-300 transition">
+
+Analytics
+
+</a>
+
+<a href="#"
+class="text-slate-400 hover:text-cyan-300 transition">
+
+Case Studies
+
+</a>
+
+<a href="#"
+class="text-slate-400 hover:text-cyan-300 transition">
+
+Learning Resources
+
+</a>
+
+<a href="#"
+class="text-slate-400 hover:text-cyan-300 transition">
+
+About
+
+</a>
+
+</div>
+
+<div class="text-xs text-slate-500">
+
+© 2026 CyberWatch. All rights reserved.
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- INCIDENT ENGINE -->
+
+<script src="js/incident_v2.js"></script>
+
+</body>
+</html>

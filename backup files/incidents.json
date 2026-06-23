@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "title": "WannaCry Ransomware Attack",
+    "category": "Ransomware",
+    "severity": "Critical",
+    "year": 2017
+  },
+  {
+    "id": 2,
+    "title": "SolarWinds Supply Chain Attack",
+    "category": "Supply Chain",
+    "severity": "Critical",
+    "year": 2020
+  },
+  {
+    "id": 3,
+    "title": "Colonial Pipeline Attack",
+    "category": "Ransomware",
+    "severity": "High",
+    "year": 2021
+  },
+  {
+    "id": 4,
+    "title": "Equifax Data Breach",
+    "category": "Data Breach",
+    "severity": "High",
+    "year": 2017
+  },
+  {
+    "id": 5,
+    "title": "MOVEit Transfer Exploit",
+    "category": "Zero-Day",
+    "severity": "Critical",
+    "year": 2023
+  },
+  {
+    "id": 6,
+    "title": "MGM Resorts Cyber Attack",
+    "category": "Social Engineering",
+    "severity": "Critical",
+    "year": 2023
+  },
+  {
+    "id": 7,
+    "title": "NotPetya Attack",
+    "category": "Ransomware",
+    "severity": "Critical",
+    "year": 2017
+  },
+  {
+    "id": 8,
+    "title": "Log4Shell Vulnerability",
+    "category": "Software Vulnerability",
+    "severity": "Critical",
+    "year": 2021
+  },
+  {
+    "id": 9,
+    "title": "Target Data Breach",
+    "category": "Data Breach",
+    "severity": "High",
+    "year": 2013
+  },
+  {
+    "id": 10,
+    "title": "Stuxnet",
+    "category": "Nation-State",
+    "severity": "High",
+    "year": 2010
+  }
+]

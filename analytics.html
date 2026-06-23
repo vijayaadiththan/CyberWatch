@@ -1,0 +1,681 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CyberWatch | Incident Intelligence Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;500&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001f24",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-background": "#dce2f7",
+                        "inverse-surface": "#dce2f7",
+                        "surface-tint": "#00daf3",
+                        "surface-container-highest": "#2e3545",
+                        "tertiary": "#edeaff",
+                        "outline": "#849396",
+                        "on-tertiary-container": "#4344d1",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-tertiary": "#1000a9",
+                        "tertiary-container": "#ccccff",
+                        "on-surface-variant": "#bac9cc",
+                        "surface-dim": "#0c1322",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-surface": "#dce2f7",
+                        "on-secondary-container": "#e6ecff",
+                        "secondary-container": "#0566d9",
+                        "surface-container-high": "#232a3a",
+                        "secondary": "#adc6ff",
+                        "background": "#0c1322",
+                        "primary": "#c3f5ff",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-container": "#191f2f",
+                        "inverse-on-surface": "#293040",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-bright": "#323949",
+                        "error-container": "#93000a",
+                        "primary-container": "#00e5ff",
+                        "outline-variant": "#3b494c",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-fixed": "#9cf0ff",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-primary": "#00363d",
+                        "error": "#ffb4ab",
+                        "surface": "#0c1322",
+                        "on-secondary-fixed": "#001a42",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006875",
+                        "surface-container-low": "#141b2b",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-secondary": "#002e6a",
+                        "on-primary-container": "#00626e",
+                        "tertiary-fixed": "#e1e0ff",
+                        "surface-variant": "#2e3545"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "base": "4px",
+                        "gutter": "20px",
+                        "lg": "24px",
+                        "container-margin": "40px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "mono-sm": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-md": ["Geist"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "mono-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0c1322;
+            color: #dce2f7;
+            overflow-x: hidden;
+        }
+
+        .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00e5ff;
+            transition: width 0.2s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c1322;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e3545;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00e5ff;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md">
+<!-- Animated Background -->
+<div class="fixed inset-0 z-[-1]">
+<div class="absolute inset-0 cyber-grid"></div>
+</div>
+<!-- Global Navigation -->
+<nav class="sticky top-0 z-50 glass-card border-x-0 border-t-0 backdrop-blur-xl bg-surface/80" style="--mouse-x: 646px; --mouse-y: 44px;">
+<div class="max-w-7xl mx-auto px-container-margin h-16 flex items-center justify-between">
+<div class="flex items-center gap-xl">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container font-bold text-[28px]">shield_with_heart</span>
+<span class="font-headline-md text-on-surface tracking-tight">CyberWatch</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="nav-link font-label-md text-on-surface-variant hover:text-primary-container" href="index.html">Home</a>
+<a class="nav-link font-label-md text-on-surface-variant hover:text-primary-container" href="incidents.html">Incident Library</a>
+<a class="nav-link font-label-md text-primary-container" href="analytics.html">Analytics</a>
+<a class="nav-link font-label-md text-on-surface-variant hover:text-primary-container" href="#">Resources</a>
+<a class="nav-link font-label-md text-on-surface-variant hover:text-primary-container" href="#">About</a>
+</div>
+</div>
+
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="max-w-7xl mx-auto min-h-screen px-container-margin py-xl relative">
+<!-- Header Section -->
+<header class="flex justify-between items-start mb-xl">
+<div class="space-y-xs">
+<div class="flex items-center gap-sm mb-xs">
+<span class="text-on-surface-variant text-label-sm font-label-sm uppercase tracking-widest opacity-60 px-sm border-l border-white/20">Research Intelligence</span>
+
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary neon-glow-cyan leading-tight">Cyber Incident Intelligence Dataset</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl opacity-80">High-fidelity cybersecurity analytics focusing on historical global incident patterns, tactical evolution, and threat landscape intelligence.</p>
+</div>
+
+</header>
+<!-- Section 2: Key Metrics Overview -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+<div class="glass-card p-lg rounded-xl flex flex-col items-center text-center relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">dataset</span>
+</div>
+<span class="material-symbols-outlined text-primary-container mb-sm text-[32px]">folder_open</span>
+<span class="font-headline-lg text-headline-lg text-on-surface neon-glow-cyan">10</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Total Incidents</span>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col items-center text-center relative overflow-hidden group" style="--mouse-x: 244px; --mouse-y: 4.1999969482421875px;">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-error">warning</span>
+</div>
+<span class="material-symbols-outlined text-error mb-sm text-[32px]">report</span>
+<span class="font-headline-lg text-headline-lg text-on-surface neon-glow-cyan">5</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Critical Incidents</span>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col items-center text-center relative overflow-hidden group" style="--mouse-x: 158px; --mouse-y: 125.19999694824219px;">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">public</span>
+</div>
+<span class="material-symbols-outlined text-primary-fixed-dim mb-sm text-[32px]">language</span>
+<span class="font-headline-lg text-headline-lg text-on-surface neon-glow-cyan">150+</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Countries Impacted</span>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col items-center text-center relative overflow-hidden group" style="--mouse-x: 155px; --mouse-y: 104.19999694824219px;">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">history</span>
+</div>
+<span class="material-symbols-outlined text-secondary-fixed-dim mb-sm text-[32px]">calendar_month</span>
+<span class="font-headline-lg text-headline-lg text-on-surface neon-glow-cyan">2010–2023</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Years Covered</span>
+</div>
+</section>
+<!-- Section 3: Bento Grid (Distribution & Severity) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg mb-xl">
+<!-- Threat Category Distribution -->
+<div class="lg:col-span-2 glass-card p-lg rounded-xl" style="--mouse-x: 579px; --mouse-y: 13.600006103515625px;">
+<div class="flex justify-between items-center mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">category</span>
+                        Threat Category Distribution
+                    </h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Global Dataset Distribution</span>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Ransomware</span>
+<span class="text-primary-container">38%</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container shadow-[0_0_10px_#00e5ff]" style="width: 38%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Data Breach</span>
+<span class="text-primary-container">24%</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/80" style="width: 24%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Vulnerability Exploitation</span>
+<span class="text-primary-container">15%</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/60" style="width: 15%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between font-label-md text-label-md mb-xs">
+<span class="text-on-surface">Social Engineering</span>
+<span class="text-primary-container">12%</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/40" style="width: 12%"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-md mt-xl pt-lg border-t border-white/5">
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Supply Chain</div>
+<div class="font-headline-md text-headline-md text-on-surface">6%</div>
+</div>
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Nation-State</div>
+<div class="font-headline-md text-headline-md text-on-surface">3%</div>
+</div>
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-on-surface-variant">Zero-Day</div>
+<div class="font-headline-md text-headline-md text-on-surface">2%</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Severity Analysis -->
+<div class="glass-card p-lg rounded-xl flex flex-col" style="--mouse-x: 2px; --mouse-y: 24.600006103515625px;">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xl flex items-center gap-sm">
+<span class="material-symbols-outlined text-error">priority_high</span>
+                    Severity Matrix
+                </h2>
+<div class="flex-1 space-y-md flex flex-col justify-center">
+<div class="flex items-center justify-between p-md rounded-lg bg-error/5 border border-error/10">
+<div class="flex items-center gap-md">
+<div class="w-2 h-2 rounded-full bg-error animate-pulse"></div>
+<span class="font-label-md text-label-md text-error">CRITICAL</span>
+</div>
+<span class="font-headline-md text-on-surface">5</span>
+</div>
+<div class="flex items-center justify-between p-md rounded-lg bg-orange-500/5 border border-orange-500/10">
+<div class="flex items-center gap-md">
+<div class="w-2 h-2 rounded-full bg-orange-500"></div>
+<span class="font-label-md text-label-md text-orange-500 uppercase">High</span>
+</div>
+<span class="font-headline-md text-on-surface">3</span>
+</div>
+<div class="flex items-center justify-between p-md rounded-lg bg-primary/5 border border-primary/10">
+<div class="flex items-center gap-md">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-label-md text-label-md text-primary uppercase">Medium</span>
+</div>
+<span class="font-headline-md text-on-surface">2</span>
+</div>
+<div class="flex items-center justify-between p-md rounded-lg bg-on-surface-variant/5 border border-on-surface-variant/10">
+<div class="flex items-center gap-md">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Low</span>
+</div>
+<span class="font-headline-md text-on-surface">0</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Incident Timeline Analysis -->
+<section class="glass-card p-lg rounded-xl mb-xl" style="--mouse-x: 494px; --mouse-y: 202.5999755859375px;">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">timeline</span>
+                        Historical Incident Evolution (2010 – 2023)
+                    </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Timeline of milestone events from the incident intelligence dataset.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">10 Key Milestones</span>
+</div>
+<div class="relative pt-xl pb-md overflow-hidden">
+<!-- Timeline Axis -->
+<div class="absolute top-[60px] left-0 right-0 h-[2px] bg-white/10"></div>
+<!-- Timeline Markers -->
+<div class="flex justify-between items-start overflow-x-auto pb-md gap-xl no-scrollbar">
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-container border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-primary-container">2010</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">Stuxnet</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/20 border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">2013</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">Target</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-error border-4 border-background z-10 shadow-[0_0_10px_#ffb4ab]"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-error">2017</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">WannaCry</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/20 border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">2017</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">Equifax</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-error border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-error">2017</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">NotPetya</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-container border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-primary-container">2020</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">SolarWinds</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/20 border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">2021</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">Colonial</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-error border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-error">2021</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">Log4Shell</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/20 border-4 border-background z-10"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">2023</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">MOVEit</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-32 relative text-center group">
+<div class="absolute top-[44px] left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-container border-4 border-background z-10 shadow-[0_0_10px_#00e5ff]"></div>
+<div class="mt-xl pt-lg">
+<span class="font-label-sm text-label-sm text-primary-container">2023</span>
+<p class="font-label-md text-label-md text-on-surface mt-xs leading-tight">MGM Resorts</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 6: Primary Attack Vectors -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">psychology</span>
+                Primary Attack Vectors &amp; Tactics
+            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<div class="glass-card p-md rounded-xl group" style="--mouse-x: 386px; --mouse-y: 71.75px;">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Phishing</h3>
+<span class="px-sm py-[2px] bg-error/10 text-error text-[10px] font-bold rounded">HIGH RISK</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Mass-scale deceptive communications used to harvest credentials and drop malware.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl group" style="--mouse-x: 323.67498779296875px; --mouse-y: 96.75px;">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Social Engineering</h3>
+<span class="px-sm py-[2px] bg-error/10 text-error text-[10px] font-bold rounded">HIGH RISK</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Psychological manipulation of individuals into divulging confidential information.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl group">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">key</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Credential Theft</h3>
+<span class="px-sm py-[2px] bg-orange-500/10 text-orange-500 text-[10px] font-bold rounded">MODERATE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Utilizing stolen or weak administrative credentials for lateral movement.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl group" style="--mouse-x: 351px; --mouse-y: -0.3499755859375px;">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">update_disabled</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Unpatched Systems</h3>
+<span class="px-sm py-[2px] bg-error/10 text-error text-[10px] font-bold rounded">CRITICAL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Exploitation of known vulnerabilities in software that has not been updated.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl group" style="--mouse-x: 85.67498779296875px; --mouse-y: 80.6500244140625px;">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">link</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Supply Chain</h3>
+<span class="px-sm py-[2px] bg-orange-500/10 text-orange-500 text-[10px] font-bold rounded">ESCALATING</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Compromising third-party vendors to gain access to their downstream customers.</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl group">
+<div class="flex items-start gap-md">
+<div class="p-sm rounded-lg bg-primary-container/10 text-primary-container">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<h3 class="font-label-md text-label-md text-on-surface">Zero-Day Exploitation</h3>
+<span class="px-sm py-[2px] bg-error/10 text-error text-[10px] font-bold rounded">ELITE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Targeting undisclosed vulnerabilities that are unknown to the software vendor.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 7: Global Impact Insights -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl">
+<div class="glass-card p-lg rounded-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-lg">Sector Vulnerability Focus</h2>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Financial Services</span>
+<span class="font-label-sm text-label-sm opacity-60">HIGH TARGET</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Healthcare</span>
+<span class="font-label-sm text-label-sm opacity-60">CRITICAL IMPACT</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 74%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 glass-card rounded-full flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="font-label-md text-label-md">Manufacturing</span>
+<span class="font-label-sm text-label-sm opacity-60">OPERATIONAL RISK</span>
+</div>
+<div class="h-1 bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 61%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col" style="--mouse-x: 407px; --mouse-y: 284.5499267578125px;">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">Global Impact Summary</h2>
+<div class="flex-1 grid grid-cols-2 gap-md mt-sm">
+<div class="p-md rounded-lg bg-white/5 border border-white/10 flex flex-col justify-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs">Most Affected Region</span>
+<span class="font-headline-md text-headline-md text-primary-container">North America</span>
+</div>
+<div class="p-md rounded-lg bg-white/5 border border-white/10 flex flex-col justify-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs">Second Most Affected</span>
+<span class="font-headline-md text-headline-md text-on-surface">Europe</span>
+</div>
+<div class="p-md rounded-lg bg-white/5 border border-white/10 flex flex-col justify-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs">Fastest Growing Threat</span>
+<span class="font-headline-md text-headline-md text-error">Ransomware</span>
+</div>
+<div class="p-md rounded-lg bg-white/5 border border-white/10 flex flex-col justify-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs">Most Common Vector</span>
+<span class="font-headline-md text-headline-md text-on-surface">Phishing</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 8: Intelligence Insights -->
+<section class="glass-card p-xl rounded-xl relative overflow-hidden border-primary-container/20" style="--mouse-x: 1106px; --mouse-y: 463.75px;">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full blur-[100px]"></div>
+<div class="flex items-center gap-md mb-xl">
+<span class="material-symbols-outlined text-primary-container text-[40px]" style="font-variation-settings: &quot;FILL&quot; 1;">insights</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">CyberWatch Intelligence Insights</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div class="space-y-lg">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Key Observations</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            The professionalization of ransomware continues to be the dominant trend, with Ransomware-as-a-Service (RaaS) lowering the barrier to entry for lower-tier threat actors while sophisticated groups focus on high-value "big game" targets.
+                        </p>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Emerging Trends</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Generative AI is increasingly utilized by threat actors to automate highly personalized phishing campaigns at scale and to accelerate the discovery of software vulnerabilities.
+                        </p>
+</div>
+</div>
+<div class="space-y-lg">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-sm">Lessons from History</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Past incidents like SolarWinds and Log4Shell underscore the critical fragility of the global digital supply chain. Modern defense must prioritize "blind spot" visibility in third-party software dependencies.
+                        </p>
+</div>
+<div class="p-lg rounded-xl bg-primary-container/5 border border-primary-container/20">
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm">Future Threat Outlook</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed italic">
+                            "We anticipate a shift toward edge-computing exploitation and the weaponization of automated response protocols, where attackers trick AI defenders into shutting down legitimate business processes."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-xl pt-xl pb-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-lg">
+<div class="text-center md:text-left">
+<div class="flex items-center gap-xs justify-center md:justify-start mb-sm">
+<span class="material-symbols-outlined text-primary-container text-md">shield_with_heart</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">CyberWatch</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">CyberWatch Incident Intelligence Platform | Part of the CyberWatch Unified Cybersecurity Ecosystem</p>
+</div>
+<div class="flex items-center gap-xl">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="text-body-sm text-on-surface-variant">Educational Cybersecurity Project</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-error animate-pulse"></div>
+<span class="text-body-sm text-on-surface-variant">Incident Intelligence Dataset</span>
+</div>
+</div>
+</footer>
+</main>
+<script>
+        // Smooth hover interactions for timeline points and other cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+
+
+
+
+</body>
+</html>

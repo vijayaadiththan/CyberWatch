@@ -1,0 +1,543 @@
+[
+  {
+    "id": 1,
+    "title": "WannaCry Ransomware Attack",
+    "category": "Ransomware",
+    "severity": "Critical",
+    "year": 2017,
+    "impact": "Global",
+    "overview": "WannaCry was a ransomware worm that exploited the EternalBlue vulnerability in Microsoft Windows systems. It rapidly spread across networks worldwide, encrypting files and demanding Bitcoin payments from victims.",
+    "stats": {
+      "systemsAffected": "200,000+",
+      "countriesImpacted": "150+",
+      "estimatedDamage": "$4 Billion",
+      "peakActivity": "May 2017"
+    },
+    "timeline": [
+      {"date": "May 12, 2017", "event": "Initial outbreak begins"},
+      {"date": "May 13, 2017", "event": "Global spread accelerates"},
+      {"date": "May 14, 2017", "event": "Kill switch discovered"},
+      {"date": "May 19, 2017", "event": "New variants emerge"}
+    ],
+    "attackVector": [
+      {"title": "EternalBlue Exploit", "description": "Exploited SMB vulnerability in Windows systems"},
+      {"title": "SMB Abuse", "description": "Used SMB protocol for propagation"},
+      {"title": "Worm Propagation", "description": "Automatically spread across networks"},
+      {"title": "Ransom Deployment", "description": "Encrypted files and demanded payment"}
+    ],
+    "globalImpact": [
+      "UK National Health Service disruption",
+      "Telecommunications outages",
+      "Government service interruptions",
+      "Massive financial losses worldwide"
+    ],
+    "mitigation": [
+      "Apply Microsoft security patches",
+      "Disable SMBv1",
+      "Implement network segmentation",
+      "Maintain regular backups",
+      "Deploy endpoint protection"
+    ],
+    "lessons": [
+      "Patch Management",
+      "Legacy System Risks",
+      "Incident Response Planning",
+      "Backup Strategy",
+      "Cybersecurity Awareness"
+    ],
+    "references": [
+      "Microsoft Security Blog",
+      "CISA",
+      "NIST",
+      "Europol"
+    ],
+    "relatedIncidents": [7, 3, 5]
+  },
+
+  {
+    "id": 2,
+    "title": "SolarWinds Supply Chain Attack",
+    "category": "Supply Chain",
+    "severity": "Critical",
+    "year": 2020,
+    "impact": "Global",
+    "overview": "Attackers compromised SolarWinds Orion software updates and distributed malicious code to thousands of organizations, enabling long-term espionage activities.",
+    "stats": {
+      "systemsAffected": "18,000+",
+      "countriesImpacted": "Multiple",
+      "estimatedDamage": "Unknown",
+      "peakActivity": "2020"
+    },
+    "timeline": [
+      {"date": "March 2020", "event": "Malicious code inserted into Orion"},
+      {"date": "June 2020", "event": "Compromised updates distributed"},
+      {"date": "December 2020", "event": "Attack publicly disclosed"},
+      {"date": "January 2021", "event": "Investigation expands globally"}
+    ],
+    "attackVector": [
+      {"title": "Supply Chain Compromise", "description": "Software vendor infrastructure breached"},
+      {"title": "Backdoored Updates", "description": "Malicious code delivered through updates"},
+      {"title": "Credential Theft", "description": "Access gained to sensitive environments"},
+      {"title": "Stealth Persistence", "description": "Attackers remained undetected for months"}
+    ],
+    "globalImpact": [
+      "Government agencies affected",
+      "Private sector espionage",
+      "National security concerns",
+      "Trust issues in software supply chains"
+    ],
+    "mitigation": [
+      "Update compromised systems",
+      "Rotate credentials",
+      "Perform threat hunting",
+      "Monitor network traffic",
+      "Review software supply chains"
+    ],
+    "lessons": [
+      "Supply Chain Security",
+      "Continuous Monitoring",
+      "Zero Trust Principles",
+      "Vendor Risk Management",
+      "Threat Hunting"
+    ],
+    "references": [
+      "CISA Advisory",
+      "Microsoft Security",
+      "FireEye Report",
+      "NIST"
+    ],
+    "relatedIncidents": [8, 10, 5]
+  },
+
+  {
+    "id": 3,
+    "title": "Colonial Pipeline Attack",
+    "category": "Ransomware",
+    "severity": "High",
+    "year": 2021,
+    "impact": "United States",
+    "overview": "The DarkSide ransomware group attacked Colonial Pipeline, causing operational disruptions and fuel shortages across parts of the United States.",
+    "stats": {
+      "systemsAffected": "Pipeline Operations",
+      "countriesImpacted": "United States",
+      "estimatedDamage": "$4.4 Million Ransom",
+      "peakActivity": "May 2021"
+    },
+    "timeline": [
+      {"date": "May 7, 2021", "event": "Attack detected"},
+      {"date": "May 8, 2021", "event": "Pipeline operations halted"},
+      {"date": "May 12, 2021", "event": "Fuel shortages reported"},
+      {"date": "May 13, 2021", "event": "Operations restored"}
+    ],
+    "attackVector": [
+      {"title": "Compromised Credentials", "description": "Attackers gained access using stolen credentials"},
+      {"title": "Ransomware Deployment", "description": "Malware encrypted business systems"},
+      {"title": "Operational Disruption", "description": "Pipeline operations suspended"},
+      {"title": "Extortion", "description": "Ransom demanded for restoration"}
+    ],
+    "globalImpact": [
+      "Fuel shortages in several states",
+      "Economic disruption",
+      "Public panic buying",
+      "Increased infrastructure security focus"
+    ],
+    "mitigation": [
+      "Enable multi-factor authentication",
+      "Monitor privileged accounts",
+      "Segment operational networks",
+      "Maintain incident response plans",
+      "Perform regular backups"
+    ],
+    "lessons": [
+      "Critical Infrastructure Security",
+      "Identity Protection",
+      "Operational Resilience",
+      "Business Continuity",
+      "Incident Preparedness"
+    ],
+    "references": [
+      "FBI Advisory",
+      "CISA",
+      "Department of Energy",
+      "NIST"
+    ],
+    "relatedIncidents": [1, 7, 6]
+  },
+  {
+  "id": 4,
+  "title": "Equifax Data Breach",
+  "category": "Data Breach",
+  "severity": "Critical",
+  "year": 2017,
+  "impact": "United States",
+  "overview": "The Equifax breach exposed highly sensitive personal information of millions of individuals due to an unpatched Apache Struts vulnerability.",
+  "stats": {
+    "systemsAffected": "147 Million Records",
+    "countriesImpacted": "Primarily United States",
+    "estimatedDamage": "$1.4 Billion+",
+    "peakActivity": "2017"
+  },
+  "timeline": [
+    {"date": "March 2017", "event": "Apache Struts vulnerability disclosed"},
+    {"date": "May 2017", "event": "Attackers gain access"},
+    {"date": "July 2017", "event": "Data exfiltration completed"},
+    {"date": "September 2017", "event": "Breach publicly disclosed"}
+  ],
+  "attackVector": [
+    {"title": "Unpatched Vulnerability", "description": "Apache Struts flaw exploited"},
+    {"title": "Web Application Access", "description": "Attackers gained initial entry"},
+    {"title": "Privilege Escalation", "description": "Expanded access within systems"},
+    {"title": "Data Exfiltration", "description": "Sensitive customer data stolen"}
+  ],
+  "globalImpact": [
+    "Identity theft risks",
+    "Massive financial penalties",
+    "Loss of public trust",
+    "Regulatory scrutiny"
+  ],
+  "mitigation": [
+    "Patch critical vulnerabilities promptly",
+    "Implement vulnerability management",
+    "Encrypt sensitive data",
+    "Monitor suspicious activity",
+    "Conduct regular security audits"
+  ],
+  "lessons": [
+    "Patch Management",
+    "Data Protection",
+    "Vulnerability Assessment",
+    "Regulatory Compliance",
+    "Security Monitoring"
+  ],
+  "references": [
+    "FTC",
+    "CISA",
+    "NIST",
+    "Equifax Reports"
+  ],
+  "relatedIncidents": [9, 5, 2]},
+ {
+  "id": 5,
+  "title": "MOVEit Transfer Exploit",
+  "category": "Zero-Day",
+  "severity": "Critical",
+  "year": 2023,
+  "impact": "Global",
+  "overview": "A zero-day vulnerability in MOVEit Transfer was exploited by the Cl0p ransomware group to steal sensitive data from organizations worldwide.",
+  "stats": {
+    "systemsAffected": "Thousands",
+    "countriesImpacted": "Global",
+    "estimatedDamage": "Hundreds of Millions",
+    "peakActivity": "2023"
+  },
+  "timeline": [
+    {"date": "May 2023", "event": "Zero-day exploitation begins"},
+    {"date": "May 2023", "event": "Data theft operations expand"},
+    {"date": "June 2023", "event": "Vulnerability disclosed"},
+    {"date": "June 2023", "event": "Mass victim extortion begins"}
+  ],
+  "attackVector": [
+    {"title": "Zero-Day Exploit", "description": "Unknown vulnerability exploited"},
+    {"title": "Web Shell Deployment", "description": "Persistence established"},
+    {"title": "Data Theft", "description": "Sensitive files extracted"},
+    {"title": "Extortion", "description": "Victims threatened with leaks"}
+  ],
+  "globalImpact": [
+    "Large-scale data exposure",
+    "Government agencies affected",
+    "Private sector disruption",
+    "Supply chain concerns"
+  ],
+  "mitigation": [
+    "Apply vendor patches",
+    "Review exposed systems",
+    "Monitor logs",
+    "Conduct forensic investigations",
+    "Strengthen data protection controls"
+  ],
+  "lessons": [
+    "Zero-Day Preparedness",
+    "Third-Party Risk",
+    "Data Security",
+    "Threat Monitoring",
+    "Incident Response"
+  ],
+  "references": [
+    "Progress Software",
+    "CISA",
+    "Microsoft",
+    "NIST"
+  ],
+  "relatedIncidents": [2, 4, 8]
+ },
+ {
+  "id": 6,
+  "title": "MGM Resorts Cyber Attack",
+  "category": "Social Engineering",
+  "severity": "Critical",
+  "year": 2023,
+  "impact": "United States",
+  "overview": "Attackers used social engineering techniques to gain unauthorized access to MGM Resorts systems, causing major operational disruptions.",
+  "stats": {
+    "systemsAffected": "Multiple Business Systems",
+    "countriesImpacted": "United States",
+    "estimatedDamage": "$100 Million+",
+    "peakActivity": "September 2023"
+  },
+  "timeline": [
+    {"date": "September 2023", "event": "Attack initiated"},
+    {"date": "September 2023", "event": "Systems disrupted"},
+    {"date": "September 2023", "event": "Public disclosure"},
+    {"date": "October 2023", "event": "Recovery efforts continue"}
+  ],
+  "attackVector": [
+    {"title": "Social Engineering", "description": "Help desk impersonation attack"},
+    {"title": "Credential Access", "description": "Account compromise achieved"},
+    {"title": "Privilege Escalation", "description": "Expanded access across systems"},
+    {"title": "Operational Disruption", "description": "Services interrupted"}
+  ],
+  "globalImpact": [
+    "Hotel operations disrupted",
+    "Casino systems affected",
+    "Customer inconvenience",
+    "Financial losses"
+  ],
+  "mitigation": [
+    "Strengthen identity verification",
+    "Enable MFA everywhere",
+    "Train employees",
+    "Improve help desk procedures",
+    "Monitor privileged access"
+  ],
+  "lessons": [
+    "Human Factor Security",
+    "Identity Protection",
+    "MFA Enforcement",
+    "Employee Awareness",
+    "Access Control"
+  ],
+  "references": [
+    "MGM Statements",
+    "CISA",
+    "Microsoft",
+    "Security Research Reports"
+  ],
+  "relatedIncidents": [3, 2, 5]
+ },
+ {
+  "id": 7,
+  "title": "NotPetya Cyber Attack",
+  "category": "Destructive Malware",
+  "severity": "Critical",
+  "year": 2017,
+  "impact": "Global",
+  "overview": "NotPetya appeared to be ransomware but was actually a destructive wiper malware. It spread through compromised accounting software and caused billions in damages worldwide.",
+  "stats": {
+    "systemsAffected": "Thousands",
+    "countriesImpacted": "65+",
+    "estimatedDamage": "$10 Billion",
+    "peakActivity": "June 2017"
+  },
+  "timeline": [
+    {"date": "June 2017", "event": "Malicious software update distributed"},
+    {"date": "June 2017", "event": "Global infections begin"},
+    {"date": "June 2017", "event": "Major corporations impacted"},
+    {"date": "July 2017", "event": "Recovery operations continue"}
+  ],
+  "attackVector": [
+    {"title": "Supply Chain Compromise", "description": "Compromised accounting software updates"},
+    {"title": "Credential Theft", "description": "Harvested credentials from systems"},
+    {"title": "Lateral Movement", "description": "Spread internally across networks"},
+    {"title": "Data Destruction", "description": "Irrecoverably damaged systems"}
+  ],
+  "globalImpact": [
+    "Shipping disruptions",
+    "Manufacturing outages",
+    "Financial losses worldwide",
+    "Infrastructure disruption"
+  ],
+  "mitigation": [
+    "Network segmentation",
+    "Application whitelisting",
+    "Credential protection",
+    "Patch management",
+    "Backup strategies"
+  ],
+  "lessons": [
+    "Supply Chain Security",
+    "Network Segmentation",
+    "Backup Readiness",
+    "Credential Protection",
+    "Incident Recovery"
+  ],
+  "references": [
+    "Microsoft Security",
+    "CISA",
+    "NIST",
+    "US-CERT"
+  ],
+  "relatedIncidents": [1, 3, 2]
+ },
+ {
+  "id": 8,
+  "title": "Log4Shell Vulnerability",
+  "category": "Software Vulnerability",
+  "severity": "Critical",
+  "year": 2021,
+  "impact": "Global",
+  "overview": "Log4Shell was a critical remote code execution vulnerability affecting the widely used Apache Log4j logging library.",
+  "stats": {
+    "systemsAffected": "Millions",
+    "countriesImpacted": "Global",
+    "estimatedDamage": "Unknown",
+    "peakActivity": "December 2021"
+  },
+  "timeline": [
+    {"date": "December 2021", "event": "Vulnerability disclosed"},
+    {"date": "December 2021", "event": "Mass exploitation begins"},
+    {"date": "December 2021", "event": "Emergency patches released"},
+    {"date": "2022", "event": "Long-term remediation efforts"}
+  ],
+  "attackVector": [
+    {"title": "Remote Code Execution", "description": "Malicious payload execution"},
+    {"title": "JNDI Injection", "description": "Abuse of Log4j lookup functionality"},
+    {"title": "System Compromise", "description": "Unauthorized code execution"},
+    {"title": "Persistence", "description": "Attackers maintained access"}
+  ],
+  "globalImpact": [
+    "Cloud services affected",
+    "Enterprise applications vulnerable",
+    "Government systems exposed",
+    "Large-scale remediation efforts"
+  ],
+  "mitigation": [
+    "Update Log4j immediately",
+    "Disable vulnerable features",
+    "Monitor logs",
+    "Scan for compromise",
+    "Implement patch management"
+  ],
+  "lessons": [
+    "Open Source Security",
+    "Asset Visibility",
+    "Patch Management",
+    "Threat Monitoring",
+    "Dependency Management"
+  ],
+  "references": [
+    "Apache Foundation",
+    "CISA",
+    "NIST",
+    "Microsoft"
+  ],
+  "relatedIncidents": [2, 5, 10]
+ },
+ {
+  "id": 9,
+  "title": "Target Data Breach",
+  "category": "Data Breach",
+  "severity": "High",
+  "year": 2013,
+  "impact": "United States",
+  "overview": "Attackers gained access to Target's network through a third-party vendor and stole payment card information from millions of customers.",
+  "stats": {
+    "systemsAffected": "40 Million Cards",
+    "countriesImpacted": "United States",
+    "estimatedDamage": "$300 Million+",
+    "peakActivity": "2013"
+  },
+  "timeline": [
+    {"date": "November 2013", "event": "Vendor credentials compromised"},
+    {"date": "November 2013", "event": "POS malware deployed"},
+    {"date": "December 2013", "event": "Customer data stolen"},
+    {"date": "December 2013", "event": "Breach disclosed publicly"}
+  ],
+  "attackVector": [
+    {"title": "Third-Party Access", "description": "Vendor account compromise"},
+    {"title": "Network Penetration", "description": "Access into Target systems"},
+    {"title": "POS Malware", "description": "Point-of-sale devices infected"},
+    {"title": "Data Theft", "description": "Payment card information stolen"}
+  ],
+  "globalImpact": [
+    "Customer financial losses",
+    "Brand reputation damage",
+    "Regulatory investigations",
+    "Retail security improvements"
+  ],
+  "mitigation": [
+    "Vendor access controls",
+    "Network segmentation",
+    "Threat monitoring",
+    "POS security improvements",
+    "Employee awareness"
+  ],
+  "lessons": [
+    "Third-Party Risk",
+    "Network Segmentation",
+    "Threat Detection",
+    "Retail Security",
+    "Access Management"
+  ],
+  "references": [
+    "Target Reports",
+    "US-CERT",
+    "NIST",
+    "FTC"
+  ],
+  "relatedIncidents": [4, 5, 6]
+ },
+ {
+  "id": 10,
+  "title": "Stuxnet",
+  "category": "Nation-State Attack",
+  "severity": "Critical",
+  "year": 2010,
+  "impact": "Industrial Infrastructure",
+  "overview": "Stuxnet was a highly sophisticated cyber weapon designed to target industrial control systems and disrupt nuclear enrichment operations.",
+  "stats": {
+    "systemsAffected": "Industrial Systems",
+    "countriesImpacted": "Multiple",
+    "estimatedDamage": "Strategic Impact",
+    "peakActivity": "2010"
+  },
+  "timeline": [
+    {"date": "2009", "event": "Development phase"},
+    {"date": "2010", "event": "Malware discovered"},
+    {"date": "2010", "event": "Industrial systems disrupted"},
+    {"date": "2011", "event": "Global analysis completed"}
+  ],
+  "attackVector": [
+    {"title": "USB Propagation", "description": "Spread through removable media"},
+    {"title": "Zero-Day Exploits", "description": "Used multiple Windows vulnerabilities"},
+    {"title": "Industrial Targeting", "description": "Focused on SCADA systems"},
+    {"title": "Physical Disruption", "description": "Affected industrial equipment"}
+  ],
+  "globalImpact": [
+    "Changed cyber warfare landscape",
+    "Nation-state cyber operations highlighted",
+    "Industrial security awareness increased",
+    "Critical infrastructure protection improved"
+  ],
+  "mitigation": [
+    "Network isolation",
+    "Industrial system monitoring",
+    "Patch management",
+    "Removable media controls",
+    "Critical infrastructure protection"
+  ],
+  "lessons": [
+    "Critical Infrastructure Security",
+    "Nation-State Threats",
+    "Industrial Control Security",
+    "Defense in Depth",
+    "Cyber Warfare Preparedness"
+  ],
+  "references": [
+    "Symantec Research",
+    "NIST",
+    "CISA",
+    "ICS-CERT"
+  ],
+  "relatedIncidents": [2, 8, 7]
+ }
+]

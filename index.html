@@ -1,0 +1,547 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CyberWatch | Enterprise Cybersecurity Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#c3f5ff",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-surface-variant": "#bac9cc",
+                        "surface-container": "#191f2f",
+                        "surface-container-low": "#141b2b",
+                        "surface-container-high": "#232a3a",
+                        "on-secondary-fixed-variant": "#004395",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-primary-container": "#00626e",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary-container": "#ccccff",
+                        "primary-container": "#00e5ff",
+                        "on-primary": "#00363d",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-variant": "#2e3545",
+                        "on-error": "#690005",
+                        "primary-fixed": "#9cf0ff",
+                        "surface-bright": "#323949",
+                        "surface": "#0c1322",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-dim": "#0c1322",
+                        "surface-container-highest": "#2e3545",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "outline": "#849396",
+                        "secondary": "#adc6ff",
+                        "on-primary-fixed": "#001f24",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "inverse-primary": "#006875",
+                        "surface-tint": "#00daf3",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#e1e0ff",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-tertiary": "#1000a9",
+                        "inverse-surface": "#dce2f7",
+                        "on-tertiary-container": "#4344d1",
+                        "background": "#0c1322",
+                        "secondary-container": "#0566d9",
+                        "on-secondary-container": "#e6ecff",
+                        "on-surface": "#dce2f7",
+                        "on-secondary": "#002e6a",
+                        "on-background": "#dce2f7",
+                        "tertiary": "#edeaff",
+                        "outline-variant": "#3b494c",
+                        "on-secondary-fixed": "#001a42"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "container-margin": "40px",
+                        "base": "4px",
+                        "gutter": "20px",
+                        "xs": "4px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "label-md": ["Geist"],
+                        "mono-sm": ["Geist"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "mono-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #050B18; } /* Override background for deep navy aesthetic */
+        .glass-panel {
+            background-color: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #c3f5ff 0%, #00e5ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .severity-critical { background: rgba(255, 180, 171, 0.1); color: #ffb4ab; border: 1px solid rgba(255, 180, 171, 0.2); }
+        .severity-high { background: rgba(255, 218, 214, 0.1); color: #ffdad6; border: 1px solid rgba(255, 218, 214, 0.2); }
+        .severity-medium { background: rgba(204, 204, 255, 0.1); color: #ccccff; border: 1px solid rgba(204, 204, 255, 0.2); }
+        
+        /* Subtle grid background for structural sections */
+        .soc-grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Custom Element Definition for ThreeJS Animation */
+        class ThreeJSScene extends HTMLElement {
+            connectedCallback() {
+                const src = this.getAttribute('src');
+                const script = document.createElement('script');
+                script.innerHTML = src;
+                
+                // create a container div
+                const container = document.createElement('div');
+                container.id = 'threejs-container-hero-globe';
+                container.style.width = '100%';
+                container.style.height = '100%';
+                
+                this.appendChild(container);
+                this.appendChild(script);
+            }
+        }
+        customElements.define('threejs-scene', ThreeJSScene);
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden relative min-h-screen">
+<!-- Ambient Background Shader -->
+<div class="fixed inset-0 z-0 opacity-40 pointer-events-none">
+</div>
+<!-- Main Content Wrapper -->
+<div class="relative z-10">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-md border-b border-white/10 shadow-sm">
+<div class="flex items-center justify-between px-container-margin py-md w-full max-w-full mx-auto">
+<div class="flex items-center gap-xl">
+<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">security</span>
+                        CyberWatch
+                    </a>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-lg ml-xl">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-sm text-body-sm active:scale-95 transition-transform" href="index.html">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm hover:opacity-80 active:scale-95 transition-transform" href="incidents.html">Incident Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm hover:opacity-80 active:scale-95 transition-transform" href="analytics.html">Analytics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm hover:opacity-80 active:scale-95 transition-transform" href="#">Resources</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm hover:opacity-80 active:scale-95 transition-transform" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<!-- Search Bar (Right aligned) -->
+<a href="incidents.html" class="bg-primary-container text-on-primary-container font-label-md text-label-md px-lg py-sm rounded border border-primary/20 hover:bg-primary hover:text-on-primary transition-all active:scale-95 inline-flex items-center">
+    Explore Incidents
+</a>                    
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<main class="pt-[120px] px-container-margin pb-xl max-w-[1600px] mx-auto min-h-[90vh] flex flex-col justify-start">
+<!-- New Hero Section -->
+<section class="relative w-full py-20 flex flex-col items-center justify-center text-center overflow-hidden mb-24 rounded-2xl border border-primary/10"><div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <!-- Cyber Grid -->
+    <div class="absolute inset-0 opacity-10 animate-pulse" style="background-image: linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px); background-size: 50px 50px; animation-duration: 8s;"></div>
+    <!-- Radial Glow -->
+    <div class="absolute inset-0 opacity-40" style="background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.15) 0%, transparent 70%);"></div>
+    <!-- Subtle Drift Overlay -->
+    <div class="absolute inset-0 opacity-20 bg-gradient-to-t from-background via-transparent to-background"></div>
+</div>
+<!-- 3D Globe Background -->
+
+<div class="relative z-10 flex flex-col items-center gap-lg max-w-4xl mx-auto px-lg">
+<span class="px-sm py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest backdrop-blur-sm shadow-[0_0_15px_rgba(0,229,255,0.2)]">Live Incident Intelligence</span>
+<h1 class="font-headline-xl text-[48px] md:text-[64px] leading-tight font-bold text-on-background">
+                Learn From Real <br>
+<span class="gradient-text">Cyber Incidents</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Analyze real-world cyber attacks, understand their impact, explore mitigation strategies, and strengthen your cybersecurity knowledge.
+            </p>
+<div class="pt-sm">
+<a href="incidents.html" class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded hover:bg-primary transition-all active:scale-95 shadow-[0_0_30px_rgba(0,229,255,0.3)] hover:shadow-[0_0_40px_rgba(0,229,255,0.5)] flex items-center gap-sm">
+    Explore Incidents
+    <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Stats Cards -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md mb-24 w-full">
+<div class="glass-panel p-md rounded-xl text-center border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.05)] hover:shadow-[0_0_20px_rgba(0,229,255,0.1)] transition-all">
+<h3 class="font-headline-lg text-primary mb-xs">10</h3>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest">Incidents</p>
+</div>
+<div class="glass-panel p-md rounded-xl text-center border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.05)] hover:shadow-[0_0_20px_rgba(0,229,255,0.1)] transition-all">
+<h3 class="font-headline-lg text-primary mb-xs">3</h3>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest">Ransomware</p>
+</div>
+<div class="glass-panel p-md rounded-xl text-center border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.05)] hover:shadow-[0_0_20px_rgba(0,229,255,0.1)] transition-all">
+<h3 class="font-headline-lg text-primary mb-xs">2</h3>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest">Data Breaches</p>
+</div>
+<div class="glass-panel p-md rounded-xl text-center border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.05)] hover:shadow-[0_0_20px_rgba(0,229,255,0.1)] transition-all">
+<h3 class="font-headline-lg text-primary mb-xs">2</h3>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest">Phishing</p>
+</div>
+</div>
+<div class="w-full glass-panel rounded-xl overflow-hidden border border-primary/20 shadow-[0_0_40px_rgba(0,229,255,0.05)] hover:shadow-[0_0_60px_rgba(0,229,255,0.1)] transition-all duration-500 group mb-24">
+<div class="grid grid-cols-1 lg:grid-cols-10 h-full">
+<!-- Content Side (65%) -->
+<div class="lg:col-span-6 p-xl flex flex-col justify-center gap-lg bg-[#0B1224]/80 backdrop-blur-md">
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Type: Social Engineering</span>
+<span class="px-sm py-1 rounded bg-error-container/20 border border-error/30 text-error text-label-sm uppercase tracking-widest">Severity: Critical</span>
+<span class="px-sm py-1 rounded bg-surface-container-highest border border-outline-variant text-on-surface-variant text-label-sm uppercase tracking-widest">Impact: High</span>
+<span class="px-sm py-1 rounded bg-surface-container-highest border border-outline-variant text-on-surface-variant text-label-sm uppercase tracking-widest">Year: 2023</span>
+</div>
+<div class="space-y-md">
+<h2 class="font-headline-xl text-headline-xl text-on-background">
+                    MGM Resorts <br>
+<span class="gradient-text">Cyber Attack</span>
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    A sophisticated social engineering campaign that compromised enterprise identity providers, leading to a massive disruption of hospitality and gaming operations across multiple properties.
+                </p>
+</div>
+<div class="pt-md">
+<a href="incident_dynamic.html?id=6" class="bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded hover:bg-primary transition-all active:scale-95 shadow-[0_0_20px_rgba(0,229,255,0.2)] flex items-center gap-sm w-max">
+    View Full Analysis
+    <span class="material-symbols-outlined" style="font-size:18px;">
+        analytics
+    </span>
+</a>
+</div>
+</div>
+<!-- Image Side (35%) -->
+<div class="lg:col-span-4 relative overflow-hidden border-l border-white/10">
+<div class="absolute inset-0 bg-gradient-to-r from-[#0B1224] to-transparent z-10"></div>
+<img alt="MGM Resorts Cyber Attack Analysis" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSZThhCLBBqb5kXnlWdc2xsAABJ0wiKYuazhN33wcpPfmRrHY4Sem1VRQba6mWOot18w3AhfAZP2OKe_9Q82WIPE8s1xb7xAK5bXokAY4sEv04DDNFSDq-WGRBJRb5-iBFFtrMFUXCU9KuERMn8BVCLpJRdXdjFOK9mrHuOSkKDEPyQAB-ovlYZGRne5zAickkLcOiIQXao7HjuFEgCThwgq4_5D-Zm0Nlbt3VlieDSsrhBReIENiwN34PiatvbWrGgaItAl5OyDiR">
+<div class="absolute bottom-md right-md z-20 bg-surface-container-lowest/80 backdrop-blur px-sm py-1 rounded border border-white/10">
+<span class="text-mono-sm text-primary text-xs uppercase tracking-widest">Case Study #8824</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 1. Incident Library Preview -->
+<section class="mb-24 w-full">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-lg text-headline-lg text-on-background">Incident <span class="gradient-text">Library</span></h3>
+<a class="text-primary hover:text-primary-container transition-colors font-label-md text-label-md uppercase tracking-wider flex items-center gap-xs" href="#">View All <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- WannaCry -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group">
+<div class="flex justify-between items-start">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Ransomware</span>
+<span class="px-sm py-1 rounded severity-critical text-label-sm uppercase tracking-widest">Critical</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-xs">WannaCry</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Global ransomware attack that exploited a vulnerability in legacy Windows systems.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/10">
+<span class="text-on-surface-variant text-mono-sm">2017</span>
+<a href="incident_dynamic.html?id=1"
+   class="flex items-center gap-2 text-primary font-label-md text-label-md hover:text-primary-container transition-colors">
+    Learn More
+    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a></div>
+</div>
+<!-- SolarWinds -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group">
+<div class="flex justify-between items-start">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Supply Chain</span>
+<span class="px-sm py-1 rounded severity-critical text-label-sm uppercase tracking-widest">Critical</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-xs">SolarWinds</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Sophisticated supply chain attack compromising the Orion IT monitoring software.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/10">
+<span class="text-on-surface-variant text-mono-sm">2020</span>
+<a href="incident_dynamic.html?id=2"
+   class="flex items-center gap-2 text-primary font-label-md text-label-md hover:text-primary-container transition-colors">
+    Learn More
+    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a></div>
+</div>
+<!-- Colonial Pipeline -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group">
+<div class="flex justify-between items-start">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Ransomware</span>
+<span class="px-sm py-1 rounded severity-high text-label-sm uppercase tracking-widest">High</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-xs">Colonial Pipeline</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Ransomware attack disrupting fuel supplies to the US East Coast.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/10">
+<span class="text-on-surface-variant text-mono-sm">2021</span>
+<a href="incident_dynamic.html?id=3"
+   class="flex items-center gap-2 text-primary font-label-md text-label-md hover:text-primary-container transition-colors">
+    Learn More
+    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a></div>
+</div>
+<!-- MOVEit -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group">
+<div class="flex justify-between items-start">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Zero-Day</span>
+<span class="px-sm py-1 rounded severity-critical text-label-sm uppercase tracking-widest">Critical</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-xs">MOVEit</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Exploitation of a zero-day vulnerability in managed file transfer software.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/10">
+<span class="text-on-surface-variant text-mono-sm">2023</span>
+<a href="incident_dynamic.html?id=4"
+   class="flex items-center gap-2 text-primary font-label-md text-label-md hover:text-primary-container transition-colors">
+    Learn More
+    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Equifax -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group">
+<div class="flex justify-between items-start">
+<span class="px-sm py-1 rounded bg-primary/10 border border-primary/30 text-primary text-label-sm uppercase tracking-widest">Data Breach</span>
+<span class="px-sm py-1 rounded severity-high text-label-sm uppercase tracking-widest">High</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background mb-xs">Equifax</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Massive data breach exposing sensitive personal information of millions.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-white/10">
+<span class="text-on-surface-variant text-mono-sm">2017</span>
+<a href="incident_dynamic.html?id=5"
+   class="flex items-center gap-2 text-primary font-label-md text-label-md hover:text-primary-container transition-colors">
+    Learn More
+    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Learning Hub -->
+<section class="mb-24 w-full">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-lg text-headline-lg text-on-background">Learning <span class="gradient-text">Hub</span></h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group items-center text-center cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">api</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-background">Attack Vectors</h4>
+</div>
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group items-center text-center cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">emergency</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-background">Incident Response</h4>
+</div>
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group items-center text-center cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">shield</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-background">Mitigation Strategies</h4>
+</div>
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md transition-all duration-300 hover:-translate-y-1 group items-center text-center cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl">menu_book</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-background">Lessons Learned</h4>
+</div>
+</div>
+</section>
+<!-- 2. Analytics Preview -->
+<section class="mb-24 w-full">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-lg text-headline-lg text-on-background">Threat <span class="gradient-text">Analytics</span></h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Threat Distribution -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md soc-grid-bg">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">pie_chart</span> Threat Distribution
+            </h4>
+<div class="h-[200px] w-full border border-white/5 bg-surface-container-lowest/50 rounded flex items-center justify-center relative">
+<svg class="w-[140px] h-[140px] transform -rotate-90" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#191f2f" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#00e5ff" stroke-dasharray="125 251" stroke-dashoffset="0" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#ffb4ab" stroke-dasharray="60 251" stroke-dashoffset="-125" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#ccccff" stroke-dasharray="40 251" stroke-dashoffset="-185" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="text-on-background font-headline-md font-bold">10</span>
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest" >Incidents</span>
+</div>
+</div>
+</div>
+<!-- Attack Trends -->
+<div class="glass-panel rounded-xl p-lg flex flex-col gap-md soc-grid-bg lg:col-span-2">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">show_chart</span> Attack Trends
+            </h4>
+<div class="h-[200px] w-full border border-white/5 bg-surface-container-lowest/50 rounded flex items-end justify-between p-sm relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50"></div>
+<svg class="absolute bottom-0 left-0 w-full h-[80%] preserve-3d" preserveAspectRatio="none" viewBox="0 0 400 100">
+<path d="M0 100 L0 60 Q 50 40 100 70 T 200 50 T 300 20 T 400 40 L400 100 Z" fill="rgba(0, 229, 255, 0.1)" stroke="#00e5ff" stroke-width="2"></path>
+</svg>
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-md pointer-events-none opacity-20">
+<div class="border-b border-white/20 w-full"></div>
+<div class="border-b border-white/20 w-full"></div>
+<div class="border-b border-white/20 w-full"></div>
+</div>
+</div>
+</div>
+<!-- Severity Overview -->
+
+</div>
+</section>
+<!-- 3. How CyberWatch Works -->
+<section class="mb-24 w-full">
+<div class="text-center mb-xl">
+<h3 class="font-headline-lg text-headline-lg text-on-background">How CyberWatch <span class="gradient-text">Works</span></h3>
+<p class="text-on-surface-variant text-body-md mt-sm max-w-2xl mx-auto">Our end-to-end incident analysis workflow provides actionable intelligence for security teams.</p>
+</div>
+<div class="relative w-full overflow-x-auto pb-lg scrollbar-hide">
+<!-- Connecting Line -->
+<div class="absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-white/10 hidden md:block z-0">
+<div class="h-full bg-gradient-to-r from-primary/20 via-primary to-primary/20 w-full animate-pulse opacity-50"></div>
+</div>
+<div class="flex flex-nowrap md:grid md:grid-cols-5 gap-md min-w-max md:min-w-0 px-sm">
+<!-- Step 1 -->
+<div class="flex flex-col items-center text-center w-[200px] md:w-auto relative z-10 group">
+<div class="w-[80px] h-[80px] rounded-full glass-panel bg-surface-container-lowest flex items-center justify-center mb-md border border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.1)] group-hover:scale-110 group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">warning</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-widest mb-xs">Incident Occurs</h4>
+<p class="text-on-surface-variant text-body-sm px-sm">Global threat detection</p>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center text-center w-[200px] md:w-auto relative z-10 group">
+<div class="w-[80px] h-[80px] rounded-full glass-panel bg-surface-container-lowest flex items-center justify-center mb-md border border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.1)] group-hover:scale-110 group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">search</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-widest mb-xs">Attack Analysis</h4>
+<p class="text-on-surface-variant text-body-sm px-sm">Deep forensic investigation</p>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center text-center w-[200px] md:w-auto relative z-10 group">
+<div class="w-[80px] h-[80px] rounded-full glass-panel bg-surface-container-lowest flex items-center justify-center mb-md border border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.1)] group-hover:scale-110 group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">hub</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-widest mb-xs">Impact Assessment</h4>
+<p class="text-on-surface-variant text-body-sm px-sm">Blast radius evaluation</p>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center text-center w-[200px] md:w-auto relative z-10 group">
+<div class="w-[80px] h-[80px] rounded-full glass-panel bg-surface-container-lowest flex items-center justify-center mb-md border border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.1)] group-hover:scale-110 group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">shield</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-widest mb-xs">Mitigation Strategies</h4>
+<p class="text-on-surface-variant text-body-sm px-sm">Actionable defense steps</p>
+</div>
+<!-- Step 5 -->
+<div class="flex flex-col items-center text-center w-[200px] md:w-auto relative z-10 group">
+<div class="w-[80px] h-[80px] rounded-full glass-panel bg-surface-container-lowest flex items-center justify-center mb-md border border-primary/30 shadow-[0_0_15px_rgba(0,229,255,0.1)] group-hover:scale-110 group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-[32px]">school</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-widest mb-xs">Lessons Learned</h4>
+<p class="text-on-surface-variant text-body-sm px-sm">Strategic security posture</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-xl pb-lg border-t border-outline-variant bg-surface-container-lowest relative z-10">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-xl px-container-margin max-w-[1600px] mx-auto">
+<div class="col-span-2 flex flex-col gap-md">
+<a class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">security</span>
+                        CyberWatch
+                    </a>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">CyberWatch helps students and security enthusiasts learn from real-world cyber incidents through analysis, timelines, mitigation strategies, and lessons learned.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-wider mb-xs">Platform</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded w-max" href="#">Incident Library</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded w-max" href="#">Analytics</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded w-max" href="#">Case Studies</a>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-label-md text-label-md text-on-background uppercase tracking-wider mb-xs">Resources</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded w-max" href="#">Learning Resources</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded w-max" href="#">About</a>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant/50 px-container-margin max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 CyberWatch . All rights reserved.</p>
+<div class="flex gap-md">
+<!-- Social Placeholders -->
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"></a>
+</div>
+</div>
+</footer>
+</div>
+
+
+
+
+</body></html>
